@@ -3,7 +3,7 @@ from re import sub
 
 def clean_text(
         raw_text: str | list,
-        pattern: str = r'\\\\.|[^a-zA-Z0-9\-\. ]'
+        pattern: str = r'\\\\.|[^a-zA-Z0-9\-\.\(\), ]'
 ) -> str | list:
     """
     Accepts raw text as a String or List (of Strings), returning output of
