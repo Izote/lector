@@ -1,25 +1,28 @@
-from re import search
+from time import time
 from utils import *
 
 
 URL_REGX = r'(?<=/)[A-Za-z0-9]+(?=\.htm)'
 
 
-def write(text_lines: list, filename: str, extension: str = 'txt') -> None:
+def write(
+        content: list,
+        filename: str = None,
+        extension: str = 'txt'
+) -> None:
     """
-    Writes a List to the provided filename to the library directory with
-    a default 'txt' file extension. If the provided filename is a URL of some
-    kind, it will be truncated to allow for local storage.
+    Takes a List and writes it as a file ('txt' by default).
+    Unless provided, the filename is stored as a timestamp.
 
-    :param text_lines:
-    :param filename:
-    :param extension:
-    :return:
+    :param content: a List or List-like object instance.
+    :param filename: the output filename (minus extension), if provided.
+    :param extension: desired file extension, defaults to 'txt'.
+    :return: none
     """
-    if filename.find('http') >= 0:
-        filename = search(URL_REGX, filename).group()
+    if filename is None:
+        filename = int(time())
 
-    filepath = join(LIB_DIR, filename + '.' + extension)
+    filepath = join(LIB_DIR, f'{filename}.{extension}')
     with open(filepath, 'w') as file:
-        for line in text_lines:
+        for line in content:
             print(line, file=file)
