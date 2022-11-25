@@ -2,9 +2,6 @@ from time import time
 from utils import *
 
 
-URL_REGX = r'(?<=/)[A-Za-z0-9]+(?=\.htm)'
-
-
 def write(
         content: list,
         filename: str = None,
