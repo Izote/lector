@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from utils import LIB_DIR
 
 if TYPE_CHECKING:
-    from library.library import Library
+    from library import Library
 
 
 def get_library(filename: str) -> Library:
