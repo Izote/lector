@@ -8,17 +8,28 @@ if TYPE_CHECKING:
 def get_tag(
         html_doc: BeautifulSoup,
         tag: str,
-        find_all: bool = True
+        attribute: str,
+        find_all: bool = True,
+        skip: int = None
 ) -> list:
     """
-    Extracts text from the provided HTML tag. By default, this will extract
-    text from *all* such tags.
+    Extracts a chosen output from the provided HTML tag.
 
-    :param html_doc: an HTML document as a BeautifulSoup object instance.
+    :param html_doc: an HTML documents as a BeautifulSoup object instance.
     :param tag: the desired HTML tag.
+    :param attribute: the desired attribute to extract (e.g., 'text', 'href').
     :param find_all: read all tags (True) or just the first (False).
+    :param skip: if provided, the output will skip this number of elements.
     :return: raw text as a List.
     """
     html_tag = html_doc.find_all(tag) if find_all else html_doc.find(tag)
 
-    return [tag.text for tag in html_tag]
+    if attribute == 'text':
+        result = [tag.text for tag in html_tag]
+    else:
+        result = [tag.get(attribute) for tag in html_tag]
+
+    if skip:
+        return result[skip:]
+    else:
+        return result
